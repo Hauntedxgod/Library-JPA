@@ -4,15 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.maxima.dao.BookMapper;
 import ru.maxima.model.Book;
-import ru.maxima.model.OwnerDTO;
-import ru.maxima.model.Person;
 import ru.maxima.repositories.BookRepositories;
 
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
 public class BookService {
     private final BookRepositories repositories;
     private final JdbcTemplate jdbcTemplate;
@@ -32,29 +30,31 @@ public class BookService {
         return repositories.findById(id).orElse(null);
     }
 
+
     public List<Book> getOwnerId(Long ownerId){
-        return repositories.findAll();
+        return jdbcTemplate.query("select * from Book where owner = ?" , new Object[]{ownerId} ,
+                new BookMapper());
     }
 
-    @Transactional
+
+
     public void saveBook(Book book){
         repositories.save(book);
     }
 
-    @Transactional
+
     public void updateBook(Long id , Book editedBook){
         editedBook.setId(id);
         repositories.save(editedBook);
     }
 
-    @Transactional
+
     public void deleteBook(Long id){
         repositories.deleteById(id);
     }
 
-    public void addOwner(Long id , OwnerDTO ownerId){
+    public void addOwner(Long id , Long ownerId){
         jdbcTemplate.update("update book set owner = ? where id = ?" , id , ownerId);
-        ownerId.setOwnerId(id);
         
 
     }

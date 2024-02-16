@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 import ru.maxima.model.Book;
 import ru.maxima.model.Person;
 
+import java.util.List;
+
 @Repository
 public interface BookRepositories extends JpaRepository<Book, Long> {
+
 }

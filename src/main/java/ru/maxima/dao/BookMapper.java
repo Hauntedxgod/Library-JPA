@@ -20,7 +20,7 @@ public class BookMapper implements RowMapper<Book> {
         libraryBook.setNameOfBook(rs.getString("NameOfBook"));
         libraryBook.setAuthorName(rs.getString("AuthorName"));
         libraryBook.setYearOfCreation(rs.getInt("YearOfCreation"));
-        libraryBook.setOwnerId(Long.valueOf(rs.getInt("owner")));
+//        libraryBook.setOwner(Long.valueOf(rs.getInt("owner")));
         return libraryBook;
     }
 }

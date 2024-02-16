@@ -11,7 +11,7 @@ import ru.maxima.repositories.PeopleRepositories;
 
 import java.util.List;
 
-@Transactional(readOnly = true)
+
 @Service
 public class PeopleService {
 
@@ -33,17 +33,17 @@ public class PeopleService {
         return repositories.findById(id).orElse(null);
     }
 
-    @Transactional
+
     public void save(Person person){
         repositories.save(person);
     }
-    @Transactional
+
     public void updatePerson(Person editedPerson , Long id){
         editedPerson.setId(id);
         repositories.save(editedPerson);
     }
 
-    @Transactional
+
     public void deletePerson(Long id){
         repositories.deleteById(id);
     }

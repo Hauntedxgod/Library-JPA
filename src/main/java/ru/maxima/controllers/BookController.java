@@ -33,8 +33,8 @@ public class BookController {
     @GetMapping("/{id}")
     public String idOfBook(@PathVariable("id")Long id , Model model){
         Book Book = bookService.getIdBook(id);
-        if (Book.getOwnerId() != null) {
-            Book.setOwner(service.getPersonId(Book.getOwnerId()));
+        if (Book.getOwner() != null) {
+            Book.setOwner(service.getPersonId(Book.getOwner().getId()));
         }
         model.addAttribute("idBook", Book);
         model.addAttribute("allPerson", service.getAllPeople());

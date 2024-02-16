@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
@@ -20,18 +22,23 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
 
     @NotEmpty(message = "Name should not to be empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
+    @Column(name = "name")
     private String name;
 
 
     @Min(value = 0 , message = "Age should be more than 0")
+    @Column(name = "age")
     private int age;
 
 
-    @OneToMany(mappedBy = "book" , fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "owner" , fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
     private List<Book> books;
 }
