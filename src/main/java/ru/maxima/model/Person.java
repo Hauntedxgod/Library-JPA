@@ -1,6 +1,7 @@
 package ru.maxima.model;
 
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -11,11 +12,14 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @Data
+@Entity
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Person {
 
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
@@ -28,5 +32,6 @@ public class Person {
     private int age;
 
 
+    @OneToMany(mappedBy = "book" , fetch = FetchType.EAGER)
     private List<Book> books;
 }

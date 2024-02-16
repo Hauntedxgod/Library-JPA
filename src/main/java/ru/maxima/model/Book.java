@@ -1,6 +1,6 @@
 package ru.maxima.model;
 
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -8,11 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+@Entity
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty(message = "The line with the name of the book must be filled in")
@@ -28,5 +31,6 @@ public class Book {
 
     private Long ownerId;
 
+    @ManyToOne
     private Person owner;
 }

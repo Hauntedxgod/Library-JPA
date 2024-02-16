@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.maxima.model.Book;
 import ru.maxima.model.OwnerDTO;
+import ru.maxima.model.Person;
 import ru.maxima.repositories.BookRepositories;
 
 import java.util.List;
@@ -51,8 +52,11 @@ public class BookService {
         repositories.deleteById(id);
     }
 
-    public void addOwner(Long id , Long ownerId){
+    public void addOwner(Long id , OwnerDTO ownerId){
         jdbcTemplate.update("update book set owner = ? where id = ?" , id , ownerId);
+        ownerId.setOwnerId(id);
+        
+
     }
 
     public void deleteOfPersonBook(Long id){
