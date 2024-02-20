@@ -17,6 +17,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Table(name = "human")
 public class Person {
 
 

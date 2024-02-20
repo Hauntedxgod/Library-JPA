@@ -24,7 +24,7 @@
 <br/>
 <form th:if="${idBook.getOwner() == null}" th:method="POST" th:action="@{/book/addowner/{id} (id=${idBook.getId()})}" th:object="${ownerDto}">
   <select th:field="*{ownerId}">
-    <option th:each="person : ${allPerson}" th:value="${person.id}" th:text="${person.name}">
+    <option th:each="person : ${getAllPerson}" th:value="${person.id}" th:text="${person.name}">
     </option>
   </select>
   <input type="submit" value="Get book people">

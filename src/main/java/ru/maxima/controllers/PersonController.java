@@ -54,7 +54,9 @@ public class PersonController {
         }
         service.save(person);
         return "redirect:/people";
-    }@PostMapping("/addowner/{id}")
+   }
+
+   @PostMapping("/addowner/{id}")
     public String orderPerson(@PathVariable("id") Long id , @ModelAttribute(name = "ownerDto") OwnerDTO ownerDTO
             , BindingResult binding ){
         if (ownerDTO.getOwnerId() != null){

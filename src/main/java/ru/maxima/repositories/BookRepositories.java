@@ -9,5 +9,6 @@ import java.util.List;
 
 @Repository
 public interface BookRepositories extends JpaRepository<Book, Long> {
+    List<Book> findByOwnerEquals(Person ownerId);
 
 }

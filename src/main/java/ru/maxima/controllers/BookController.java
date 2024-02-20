@@ -32,12 +32,12 @@ public class BookController {
 
     @GetMapping("/{id}")
     public String idOfBook(@PathVariable("id")Long id , Model model){
-        Book Book = bookService.getIdBook(id);
-        if (Book.getOwner() != null) {
-            Book.setOwner(service.getPersonId(Book.getOwner().getId()));
+        Book book = bookService.getIdBook(id);
+        if (book.getOwner() != null) {
+            book.setOwner(service.getPersonId(book.getOwner().getId()));
         }
-        model.addAttribute("idBook", Book);
-        model.addAttribute("allPerson", service.getAllPeople());
+        model.addAttribute("idBook", book);
+        model.addAttribute("getAllPerson", service.getAllPeople());
         model.addAttribute("idPerson" , service.getPersonId(id));
         model.addAttribute("ownerDto", new OwnerDTO());
         return "view-with-book-id";

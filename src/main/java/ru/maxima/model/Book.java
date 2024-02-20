@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Table(name = "book")
 public class Book {
 
     @Id

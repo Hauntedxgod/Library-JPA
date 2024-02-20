@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.maxima.dao.BookMapper;
 import ru.maxima.model.Book;
+import ru.maxima.model.Person;
 import ru.maxima.repositories.BookRepositories;
 
 import java.util.List;
@@ -26,13 +27,13 @@ public class BookService {
         return repositories.findAll();
     }
 
-    public Book getIdBook(Long id){
+    public Book getIdBook(Long id) {
         return repositories.findById(id).orElse(null);
     }
 
 
     public List<Book> getOwnerId(Long ownerId){
-        return jdbcTemplate.query("select * from Book where owner = ?" , new Object[]{ownerId} ,
+        return jdbcTemplate.query("select * from book where owner = ?" , new Object[]{ownerId} ,
                 new BookMapper());
     }
 
@@ -55,8 +56,6 @@ public class BookService {
 
     public void addOwner(Long id , Long ownerId){
         jdbcTemplate.update("update book set owner = ? where id = ?" , id , ownerId);
-        
-
     }
 
     public void deleteOfPersonBook(Long id){
