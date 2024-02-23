@@ -1,12 +1,9 @@
 package ru.maxima.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import ru.maxima.dao.BookMapper;
-import ru.maxima.model.OwnerDTO;
 import ru.maxima.model.Person;
+import ru.maxima.repositories.BookRepositories;
 import ru.maxima.repositories.PeopleRepositories;
 
 import java.util.List;
@@ -16,12 +13,11 @@ import java.util.List;
 public class PeopleService {
 
     private final PeopleRepositories repositories;
-    private final JdbcTemplate jdbcTemplate;
-
+    private final BookRepositories bookRepositories;
     @Autowired
-    public PeopleService(PeopleRepositories repositories, JdbcTemplate jdbcTemplate) {
+    public PeopleService(PeopleRepositories repositories, BookRepositories bookRepositories) {
         this.repositories = repositories;
-        this.jdbcTemplate = jdbcTemplate;
+        this.bookRepositories = bookRepositories;
     }
 
 
@@ -49,11 +45,16 @@ public class PeopleService {
 
 
     public void addOwner(Long id , Long ownerId){
-       jdbcTemplate.update("update human set owner = ? where id = ?" , ownerId , id);
+       Person people = repositories.findById(id).orElse(null);
+       if (people != null){
+           people.setBooks(bookRepositories.findByOwner_Id(ownerId));
+       }
+       repositories.save(people);
+
     }
 
     public void deleteBookFromPerson(Long id){
-        jdbcTemplate.update("update book set owner=null where id = ?" , id);
+        addOwner(id , null);
     }
 
 

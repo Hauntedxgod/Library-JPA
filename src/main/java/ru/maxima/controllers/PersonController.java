@@ -36,7 +36,6 @@ public class PersonController {
         person.setBooks(bookService.getOwnerId(id));
         model.addAttribute("allBook" , bookService.getAllBook());
         model.addAttribute("personById", person);
-        model.addAttribute("getBookId" , bookService.getIdBook(id));
         model.addAttribute("ownerDto", new OwnerDTO());
         return "view-with-person-by-id";
     }
