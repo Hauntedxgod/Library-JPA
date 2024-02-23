@@ -54,7 +54,9 @@ public class PeopleService {
     }
 
     public void deleteBookFromPerson(Long id){
-        addOwner(id , null);
+        Person deletePerson = repositories.findById(id).orElse(null);
+        deletePerson.setBooks(null);
+        repositories.save(deletePerson);
     }
 
 
